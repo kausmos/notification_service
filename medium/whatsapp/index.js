@@ -15,8 +15,7 @@ class WhatsappMedium {
   
    //Whatsapp medium logic comes here
     scheduleNotifications(message,frequency){
-        const cronexpression=this.getCronExpression(frequency);
-        console.log(cronexpression);
+        const cronexpression=this.getCronExpression(frequency);        
         this.job.schedule(cronexpression,()=>this.sendNotifications(message));
         
     }
@@ -63,7 +62,5 @@ class WhatsappMedium {
     }
   }
   
-  const instance = new WhatsappMedium();
-  Object.freeze(instance);
   
-  module.exports = instance;
+  module.exports = WhatsappMedium;

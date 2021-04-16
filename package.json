@@ -1,5 +1,29 @@
 {
   "dependencies": {
     "node-cron": "^3.0.0"
+  },
+  "name": "notification_service",
+  "description": "Notification service that integrates with third party messaging applications. Periodically sends notifications.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha test/units"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kausmos/notification_service.git"
+  },
+  "author": "Kaustuva Ghosh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kausmos/notification_service/issues"
+  },
+  "homepage": "https://github.com/kausmos/notification_service#readme",
+  "devDependencies": {
+    "mocha": "^8.3.2",
+    "sinon": "^10.0.0"
   }
 }

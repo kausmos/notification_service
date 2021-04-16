@@ -15,8 +15,7 @@ class SMSMedium {
   
    //sms medium logic comes here
     scheduleNotifications(message,frequency){
-        const cronexpression=this.getCronExpression(frequency);
-        console.log(cronexpression);
+        const cronexpression=this.getCronExpression(frequency);        
         this.job.schedule(cronexpression,()=>this.sendNotifications(message));
         
     }
@@ -33,7 +32,7 @@ class SMSMedium {
         //This is a stub, integration with 3rd party api happens here
         //bedlow condition mimics a small chance of failure
         //below condition will be replaced by something like if(res.ok)        
-        if(Math.floor(Math.random() * 10)) return true;
+        if(this.smsVendorApiCall()) return true;
 
         //this code is executed only on above condition being false, i.e. failure case
         if(retries>0){
@@ -61,9 +60,12 @@ class SMSMedium {
                 return '* * * * * *';
         }
     }
+
+    smsVendorApiCall(message,number){
+        if(Math.floor(Math.random() * 10)) return true;
+        return false;
+    }
   }
   
-  const instance = new SMSMedium();
-  Object.freeze(instance);
   
-  module.exports = instance;
+  module.exports = SMSMedium;

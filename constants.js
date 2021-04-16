@@ -4,8 +4,8 @@ const constants = {
         'DAILY' : '0 0 * * *',
         'wEEKLY' : '0 0 * * 1',
         'EVERY_MINUTE' : '* * * * *'
-    }
+    },
+    numOfRetries : 3,
 }
-constants.numOfRetries=3;
 
 module.exports = constants;

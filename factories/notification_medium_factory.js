@@ -3,8 +3,10 @@ let whatsapp=require('../medium/whatsapp');
 const media = {sms, whatsapp};
 
 function createMedium(medium){
-        return media[medium];      
+        const mediumObj = new media[medium]();
+        Object.freeze(mediumObj);
+        return mediumObj;
     }
 
 
-module.exports= createMedium;
+module.exports = createMedium;
