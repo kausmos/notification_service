@@ -26,12 +26,7 @@ describe('Notification Service ',function(){
         //replace the getMediumSingleton to return mockMedia
         
         const service = new NotificationService();
-        // fakeFactory = sinon.fake(service, "getMediumSingleton")..yields(
-        //     {
-        //         scheduleNotifications: function(){}
-        //     }
-        // );
-
+        
         let stub=sinon.stub(service,"getMediumSingleton");
         stub.returns(
             {

@@ -57,7 +57,7 @@ class SMSMedium {
             case 'every_minute':
                 return constants.cronExpression['EVERY_MINUTE'];
             default:
-                return '* * * * * *';
+                return constants.cronExpression['DEFAULT'];
         }
     }
 

@@ -12,10 +12,7 @@ class NotificationService{
     }
 
     getMediumSingleton(medium){
-        if(!this.factory){
-            this.factory= medium_factory(medium);
-        }
-        return this.factory;
+        return medium_factory(medium);       
     }
 }
 
