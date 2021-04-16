@@ -1,5 +1,7 @@
 let inventory = require('./inventory');
 const cron = require('node-cron');
+const constants = require('../../constants.js');
+
 class SMSMedium {
     constructor(){
      if(! SMSMedium.instance){
@@ -12,29 +14,49 @@ class SMSMedium {
     }
   
    //sms medium logic comes here
-    scheduleNotification(message,frequency){
+    scheduleNotifications(message,frequency){
         const cronexpression=this.getCronExpression(frequency);
-        this.job.schedule(cronexpression,()=>this.sendNotification(message));
+        console.log(cronexpression);
+        this.job.schedule(cronexpression,()=>this.sendNotifications(message));
         
     }
 
-    sendNotification(message){
+    sendNotifications(message){
         for(let user of this.inventory.getUsers()){
-            console.log(`SMS message: '${message}' sent to '${user.name}' on '${user.number}'`);
-            //this can be further replaced by an api call or an sdk module
+            if(this.pushNotificationToUser(message,user.number)){
+                console.log(`SMS message: '${message}' sent to '${user.name}' on '${user.number}'`);
+            };
         }
+    }
+
+    pushNotificationToUser(message,number,retries=constants.numOfRetries){
+        //This is a stub, integration with 3rd party api happens here
+        //bedlow condition mimics a small chance of failure
+        //below condition will be replaced by something like if(res.ok)        
+        if(Math.floor(Math.random() * 10)) return true;
+
+        //this code is executed only on above condition being false, i.e. failure case
+        if(retries>0){
+            console.log(`SMS to ${number} failed...Retrying.`);
+            return this.pushNotificationToUser(message,number,retries-1);
+        }else{
+            console.log(`SMS to ${number} failed...Max retries reached.`);
+            return false;
+        }
+            
+       
     }
 
     getCronExpression(frequency){
         switch(frequency){
             case 'monthly':
-                return '0 0 1 * *';
+                return constants.cronExpression['MONTHLY'];
             case 'daily':
-                return '0 0 * * *';
+                return constants.cronExpression['DAILY'];
             case 'weekly':
-                return '0 0 * * 1';
+                return constants.cronExpression['wEEKLY'];
             case 'every_minute':
-                return '* * * * *';
+                return constants.cronExpression['EVERY_MINUTE'];
             default:
                 return '* * * * * *';
         }
